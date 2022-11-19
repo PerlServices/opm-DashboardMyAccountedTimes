@@ -62,6 +62,7 @@ sub Config {
 sub Run {
     my ( $Self, %Param ) = @_;
 
+    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
     my $DBObject     = $Kernel::OM->Get('Kernel::System::DB');
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
@@ -73,6 +74,8 @@ sub Run {
         WHERE change_by = ?
             AND change_time > ?
     ~;
+
+    my $Limit = 100_000;
 
     return if !$DBObject->Prepare(
         SQL   => $SQL,
@@ -91,14 +94,23 @@ sub Run {
         );
     }
     else {
-        for my $Span ( qw() ) {
+        my $Spans  = $ConfigObject->Get('MyAccountedTimes::Stats') || ['current_week'];
+        my @ToShow = map {
+            join '', map{ ucfirst $_ } split /_/, $_;
+        }@{ $Spans || [] };
+
+        for my $Span ( @ToShow ) {
             my $MinDate = $Dates{$Span};
 
-            my $Sum = sum0 grep { $_->[1] gt $MinDate } @AccountedTimes;
+            my @Times = grep { $_->[1] gt $MinDate } @AccountedTimes;
+            my $Sum   = sum0 map{ $_->[0] } @Times;
 
             $LayoutObject->Block(
                 Name => 'Span',
-                Data => { Times => $Sum },
+                Data => {
+                    Span           => $Span,
+                    AccountedTimes => $Sum,
+                },
             );
         }
     }
@@ -127,7 +139,7 @@ sub _GetDates {
     my $DateTimeObject = $Kernel::OM->Create(
         'Kernel::System::DateTime',
         ObjectParams => {
-            TimeZone => $Preferences{TimeZone},
+            TimeZone => $Preferences{UserTimeZone},
         }
     );
 
@@ -140,6 +152,7 @@ sub _GetDates {
         Minute => 0,
         Second => 0,
     );
+    $CurrentMonthObject->ToOTRSTimeZone();
 
     my $CurrentWeekObject = $DateTimeObject->Clone();
     $CurrentWeekObject->Subtract( Days => ( $Today->{DayOfWeek} - 1 ) );
@@ -148,6 +161,7 @@ sub _GetDates {
         Minute => 0,
         Second => 0,
     );
+    $CurrentWeekObject->ToOTRSTimeZone();
 
     my $SevenDaysObject = $DateTimeObject->Clone();
     $SevenDaysObject->Subtract( Days => 7 );
@@ -156,12 +170,20 @@ sub _GetDates {
         Minute => 0,
         Second => 0,
     );
+    $SevenDaysObject->ToOTRSTimeZone();
+
+    $DateTimeObject->Set(
+        Hour   => 0,
+        Minute => 0,
+        Second => 0,
+    );
+    $DateTimeObject->ToOTRSTimeZone();
 
     my %Dates = (
-        CurrentMonth => $CurrentMonthObject->ToOTRSTimeZone()->ToString(),
-        CurrentWeek  => $CurrentWeekObject->ToOTRSTimeZone()->ToString(),
-        Today        => $DateTimeObject->ToOTRSTimeZone()->ToString();
-        SevenDays    => $SevenDaysObject->ToOTRSTimeZone()->ToString(),
+        CurrentMonth => $CurrentMonthObject->ToString(),
+        CurrentWeek  => $CurrentWeekObject->ToString(),
+        Today        => $DateTimeObject->ToString(),
+        SevenDays    => $SevenDaysObject->ToString(),
     );
 
     return %Dates;

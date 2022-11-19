@@ -15,6 +15,6 @@
     "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007",
     "description" : {
         "en": "Dashboard widget to get an overview of accounted times",
-        "de": "Dashboard mit einer Übersicht der gebuchten Zeiten"
+        "de": "Dashboard Widget mit einer Übersicht der gebuchten Zeiten"
     }
 }

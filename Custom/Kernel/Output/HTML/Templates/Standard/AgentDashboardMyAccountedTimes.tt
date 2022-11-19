@@ -1,5 +1,4 @@
 # --
-# AgentDashboardMyLastChangedTickets.tt - provides HTML for global dashboard
 # Copyright (C) 2015 - 2022 Perl-Services.de, https://www.perl-services.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -8,31 +7,16 @@
 # --
 
 <div id="mylastchangedtickets-data">
-[% RenderBlockStart("Refresh") %]
-    <span style="height: 25px">
-        <a href="javascript:void(0);"
-           onclick="PS.MyLastChangedTickets.RefreshMylastchangetickets()"
-           id="mylastchangedtickets-refresh">[% Translate("Refresh") | html %]</a>
-        <span id="mylastchangedtickets-spinner"></span>
-    </span>
-[% RenderBlockEnd("Refresh") %]
+    <fieldset class="TableLike FixedLabelSmall Narrow">
+[% RenderBlockStart("Span") %]
+        <label>[% Translate(Data.Span) | html %]:</label>
+        <p class="Value">[% Data.AccountedTimes | html %]</p>
+        <div class="Clear"></div>
+[% RenderBlockEnd("Span") %]
 
-<table class="DataTable">
-    <tbody>
-[% RenderBlockStart("Ticket") %]
-        <tr>
-            <td>
-                <a href="[% Env("Baselink") %][% Data.Link %]" title="[% Data.Title | html %]">[% Data.TicketNumber %]</a> [% Data.Title | truncate(50) | html %]
-            </td>
-        </tr>
-[% RenderBlockEnd("Ticket") %]
-[% RenderBlockStart("NoTickets") %]
-        <tr>
-            <td>
-                [% Translate("No tickets found.") | html %]
-            </td>
-        </tr>
-[% RenderBlockEnd("NoTickets") %]
-    </tbody>
+[% RenderBlockStart("NoTimes") %]
+    [% Translate("No time accounting done.") | html %]
+[% RenderBlockEnd("NoTimes") %]
+    </fieldset>
 </table>
 </div>

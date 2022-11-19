@@ -6,7 +6,7 @@
 # did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 # --
 
-package Kernel::Language::de_DashboardMyAccountedTimes;
+package Kernel::Language::en_DashboardMyAccountedTimes;
 
 use strict;
 use warnings;
@@ -18,12 +18,9 @@ sub Data {
 
     my $Lang = $Self->{Translation} || {};
 
-    $Lang->{'No accounted times found.'} = 'Keine gebuchten Zeiten gefunden.';
-    $Lang->{'My accounted times'} = 'Meine gebuchten Zeiten';
-    $Lang->{'No time accounting done.'} = 'Keine Zeiten gebucht';
-    $Lang->{'CurrentMonth'} = 'Aktueller Monat';
-    $Lang->{'CurrentWeek'} = 'Aktuelle Woche';
-    $Lang->{'SevenDays'} = 'letzte 7 Tage';
+    $Lang->{'CurrentMonth'} = 'Current month';
+    $Lang->{'CurrentWeek'} = 'Current week';
+    $Lang->{'SevenDays'} = 'last 7 days';
 }
 
 1;

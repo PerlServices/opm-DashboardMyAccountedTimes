@@ -1,0 +1,38 @@
+# --
+# AgentDashboardMyLastChangedTickets.tt - provides HTML for global dashboard
+# Copyright (C) 2015 - 2022 Perl-Services.de, https://www.perl-services.de
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div id="mylastchangedtickets-data">
+[% RenderBlockStart("Refresh") %]
+    <span style="height: 25px">
+        <a href="javascript:void(0);"
+           onclick="PS.MyLastChangedTickets.RefreshMylastchangetickets()"
+           id="mylastchangedtickets-refresh">[% Translate("Refresh") | html %]</a>
+        <span id="mylastchangedtickets-spinner"></span>
+    </span>
+[% RenderBlockEnd("Refresh") %]
+
+<table class="DataTable">
+    <tbody>
+[% RenderBlockStart("Ticket") %]
+        <tr>
+            <td>
+                <a href="[% Env("Baselink") %][% Data.Link %]" title="[% Data.Title | html %]">[% Data.TicketNumber %]</a> [% Data.Title | truncate(50) | html %]
+            </td>
+        </tr>
+[% RenderBlockEnd("Ticket") %]
+[% RenderBlockStart("NoTickets") %]
+        <tr>
+            <td>
+                [% Translate("No tickets found.") | html %]
+            </td>
+        </tr>
+[% RenderBlockEnd("NoTickets") %]
+    </tbody>
+</table>
+</div>

@@ -6,7 +6,7 @@
         "6.1.x",
         "6.2.x",
         "6.3.x",
-        "6.3.x"
+        "6.4.x"
     ],
     "vendor": {
         "name": "Perl-Services.de",
@@ -16,5 +16,8 @@
     "description" : {
         "en": "Dashboard widget to get an overview of accounted times",
         "de": "Dashboard Widget mit einer Übersicht der gebuchten Zeiten"
-    }
+    },
+    "exclude_files" : [
+        "doc/DashboardMyAccountedTimes.json"
+    ]
 }

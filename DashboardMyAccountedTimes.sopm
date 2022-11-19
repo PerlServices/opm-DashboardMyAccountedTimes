@@ -7,10 +7,10 @@
     <Framework>6.1.x</Framework>
     <Framework>6.2.x</Framework>
     <Framework>6.3.x</Framework>
-    <Framework>6.3.x</Framework>
+    <Framework>6.4.x</Framework>
     <Vendor>Perl-Services.de</Vendor>
     <URL>https://www.perl-services.de</URL>
-    <Description Lang="de">Dashboard mit einer Übersicht der gebuchten Zeiten</Description>
+    <Description Lang="de">Dashboard Widget mit einer Übersicht der gebuchten Zeiten</Description>
     <Description Lang="en">Dashboard widget to get an overview of accounted times</Description>
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <Filelist>
@@ -18,6 +18,6 @@
         <File Permission="644" Location="Custom/Kernel/Output/HTML/Templates/Standard/AgentDashboardMyAccountedTimes.tt" />
         <File Permission="644" Location="Kernel/Config/Files/XML/DasboardMyAccountedTimes.xml" />
         <File Permission="644" Location="Kernel/Language/de_DashboardMyAccountedTimes.pm" />
-        <File Permission="644" Location="doc/DashboardMyAccountedTimes.json" />
+        <File Permission="644" Location="Kernel/Language/en_DashboardMyAccountedTimes.pm" />
     </Filelist>
 </otrs_package>
